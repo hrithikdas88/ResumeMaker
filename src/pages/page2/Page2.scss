@@ -1,0 +1,57 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 20px;
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .card-heading {
+    margin-top: 0;
+  }
+  
+  .content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .left-side,
+  .right-side {
+    flex: 1;
+  }
+  .left-side{
+    margin-right: 20px;
+  }
+  
+  .left-side form,
+  .right-side form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .left-side h3,
+  .right-side h3 {
+    margin-bottom: 10px;
+  }
+  
+  .left-side label,
+  .right-side label {
+    margin-bottom: 5px;
+  }
+  
+  .left-side input,
+  .right-side input,
+  .right-side textarea {
+    padding: 5px;
+    margin-bottom: 10px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+  }
+  
+  .right-side textarea {
+    height: 100px;
+  }
+  
