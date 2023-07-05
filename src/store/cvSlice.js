@@ -12,6 +12,15 @@ const inputSlice = createSlice({
   initialState: {
     personalInfo: {
       name: "",
+      age: "",
+      email: "",
+      number: "",
+      languages: [],
+    },
+    additionalInfo: {
+      skills: [],
+      workExperience: [],
+      educationalQualification: [],
     },
     submittedName: "",
     loading: false,
@@ -23,6 +32,21 @@ const inputSlice = createSlice({
     },
     setSubmittedName: (state, action) => {
       state.submittedName = action.payload;
+    },
+    setPersonalInfo: (state, action) => {
+      state.personalInfo = { ...state.personalInfo, ...action.payload };
+    },
+    addLanguage: (state, action) => {
+      state.personalInfo.languages.push(action.payload);
+    },
+    addSkill: (state, action) => {
+      state.additionalInfo.skills.push(action.payload);
+    },
+    addWorkExperience: (state, action) => {
+      state.additionalInfo.workExperience.push(action.payload);
+    },
+    addEducationalQualification: (state, action) => {
+      state.additionalInfo.educationalQualification.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -44,6 +68,16 @@ const inputSlice = createSlice({
   },
 });
 
-export const { setName, setSubmittedName } = inputSlice.actions;
+export const {
+  setName,
+  setSubmittedName,
+  setPersonalInfo,
+  addLanguage,
+  addSkill,
+  addWorkExperience,
+  addEducationalQualification,
+} = inputSlice.actions;
+
 export default inputSlice.reducer;
+
 
