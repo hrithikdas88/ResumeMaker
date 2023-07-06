@@ -16,6 +16,9 @@
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    .render{
+      width: 300px;
+    }
   }
   
   .left-side,
@@ -55,4 +58,4 @@
   .left-side textarea {
     height: 100px;
   }
-  
+ 

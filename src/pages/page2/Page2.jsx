@@ -6,15 +6,18 @@ import {
   setPersonalInfo,
   addLanguage,
   addSkill,
-  addWorkExperience,
+  
   addEducationalQualification,
+  addWorkExperiencetitle,
+  addWorkExperienceEmployeename,
+  addWorkExperienceDuration,
 } from "../../store/cvSlice";
 import "./Page2.scss";
 
 const Page2 = () => {
   const submittedName = useSelector((state) => state.input.submittedName);
   const personalInfo = useSelector((state) => state.input.personalInfo);
-  const additionalInfo = useSelector((state) => state.input.additionalInfo);
+ 
   const dispatch = useDispatch();
 
   const handleNameChange = (event) => {
@@ -54,17 +57,31 @@ const Page2 = () => {
       })
     );
   };
+  const handleSkillChange = (event,index) =>{
+    const skills = [...personalInfo.skills];
+    skills[index] =event.target.value;
+    dispatch(
+      setPersonalInfo({
+        skills
+      })
+    )
+  }
 
-  const handleSkillChange = (event) => {
-    dispatch(addSkill(event.target.value));
+
+
+  const handleWorkExperienceChangeTitle = (event) => {
+    
+    dispatch(addWorkExperiencetitle(event.target.value));
   };
-
-  const handleWorkExperienceChange = (event) => {
-    dispatch(addWorkExperience(event.target.value));
+  const handleWorkExperienceChangeEmployeeName = (event) => {
+    dispatch(addWorkExperienceEmployeename(event.target.value));
+  };
+  const handleWorkExperienceDuration = (event) => {
+    dispatch(addWorkExperienceDuration(event.target.value));
   };
 
   const handleEducationalQualificationChange = (event) => {
-    dispatch(addEducationalQualification(event.target.value));
+    dispatch((event.target.value));
   };
 
   const handleAddLanguage = () => {
@@ -89,6 +106,19 @@ const Page2 = () => {
           type="text"
           value={language}
           onChange={(event) => handleLanguageChange(event, index)}
+        />
+      </div>
+    ));
+  };
+
+  const renderSkillInputs = () => {
+    return personalInfo.skills.map((skills, index) => (
+      <div key={index} >
+        <input  style={{width:"250px"}}
+          type="text"
+          value={skills}
+         
+          onChange={(event) => handleSkillChange(event, index)}
         />
       </div>
     ));
@@ -150,20 +180,28 @@ const Page2 = () => {
             <input type="file" id="image" name="image" accept="image/*" />
 
             <label htmlFor="skills">Skills:</label>
-            <input
-              type="text"
-              id="skills"
-              name="skills"
-              onChange={handleSkillChange}
-            />
+           {renderSkillInputs()}
             <button type="button" onClick={handleAddSkill}>Add Skill</button>
 
             <label htmlFor="workExperience">Work Experience:</label>
-            <textarea
+            <input
               id="workExperience"
               name="workExperience"
-              onChange={handleWorkExperienceChange}
-            ></textarea>
+              onChange={handleWorkExperienceChangeTitle}
+              placeholder="Jobtitle"
+            ></input>
+              <input
+              id="workExperience"
+              name="workExperience"
+              onChange={handleWorkExperienceChangeEmployeeName}
+              placeholder="Employername"
+            ></input>
+              <input
+              id="workExperience"
+              name="workExperience"
+              onInput={handleWorkExperienceDuration}
+              placeholder="Duration"
+            ></input>
             <button type="button">Add Work Experience</button>
 
             <label htmlFor="educationalQualification">

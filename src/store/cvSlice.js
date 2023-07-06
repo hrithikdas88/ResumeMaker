@@ -16,12 +16,15 @@ const inputSlice = createSlice({
       email: "",
       number: "",
       languages: [],
-    },
-    additionalInfo: {
       skills: [],
-      workExperience: [],
+      workExperience: {
+          jobtitle:[],
+          Employeename:[],
+          Duration:[]
+      },
       educationalQualification: [],
     },
+   
     submittedName: "",
     loading: false,
     error: null,
@@ -40,13 +43,19 @@ const inputSlice = createSlice({
       state.personalInfo.languages.push(action.payload);
     },
     addSkill: (state, action) => {
-      state.additionalInfo.skills.push(action.payload);
+      state.personalInfo.skills.push(action.payload);
     },
-    addWorkExperience: (state, action) => {
-      state.additionalInfo.workExperience.push(action.payload);
+    addWorkExperiencetitle: (state, action) => {
+      state.personalInfo.workExperience.jobtitle.push(action.payload);
+    },
+    addWorkExperienceEmployeename: (state, action) => {
+      state.personalInfo.workExperience.Employeename.push(action.payload);
+    },
+    addWorkExperienceDuration: (state, action) => {
+      state.personalInfo.workExperience.Duration.push(action.payload);
     },
     addEducationalQualification: (state, action) => {
-      state.additionalInfo.educationalQualification.push(action.payload);
+      state.personalInfo.educationalQualification.push(action.payload);
     },
   },
   extraReducers: (builder) => {
@@ -74,7 +83,10 @@ export const {
   setPersonalInfo,
   addLanguage,
   addSkill,
-  addWorkExperience,
+  
+  addWorkExperiencetitle,
+  addWorkExperienceEmployeename,
+  addWorkExperienceDuration,
   addEducationalQualification,
 } = inputSlice.actions;
 
