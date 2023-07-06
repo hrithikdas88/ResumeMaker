@@ -15,16 +15,14 @@ const inputSlice = createSlice({
       age: "",
       email: "",
       number: "",
-      languages: [],
-      skills: [],
-      workExperience: {
-          jobtitle:[],
-          Employeename:[],
-          Duration:[]
-      },
-      educationalQualification: [],
+      languages: [{ language: "" }],
+      skills: [{ skill: "" }],
+      workExperiences: [{ Employername: "", Jobtitle: "", Duration: "" }],
+      educationalQualifications: [
+        { InstituteName: "", Qualification: "", Cgpa: "" },
+      ],
     },
-   
+
     submittedName: "",
     loading: false,
     error: null,
@@ -39,23 +37,20 @@ const inputSlice = createSlice({
     setPersonalInfo: (state, action) => {
       state.personalInfo = { ...state.personalInfo, ...action.payload };
     },
-    addLanguage: (state, action) => {
-      state.personalInfo.languages.push(action.payload);
+
+    addWorkExperience: (state) => {
+      state.personalInfo.workExperiences.push({
+        Employername: "",
+        Jobtitle: "",
+        Duration: "",
+      });
     },
-    addSkill: (state, action) => {
-      state.personalInfo.skills.push(action.payload);
-    },
-    addWorkExperiencetitle: (state, action) => {
-      state.personalInfo.workExperience.jobtitle.push(action.payload);
-    },
-    addWorkExperienceEmployeename: (state, action) => {
-      state.personalInfo.workExperience.Employeename.push(action.payload);
-    },
-    addWorkExperienceDuration: (state, action) => {
-      state.personalInfo.workExperience.Duration.push(action.payload);
-    },
-    addEducationalQualification: (state, action) => {
-      state.personalInfo.educationalQualification.push(action.payload);
+    addEducationalQualification: (state) => {
+      state.personalInfo.educationalQualifications.push({
+        InstituteName: "",
+        Qualification: "",
+        Cgpa: "",
+      });
     },
   },
   extraReducers: (builder) => {
@@ -83,13 +78,10 @@ export const {
   setPersonalInfo,
   addLanguage,
   addSkill,
-  
-  addWorkExperiencetitle,
-  addWorkExperienceEmployeename,
-  addWorkExperienceDuration,
+  addWorkExperience,
+ 
+
   addEducationalQualification,
 } = inputSlice.actions;
 
 export default inputSlice.reducer;
-
-

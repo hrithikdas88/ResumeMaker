@@ -18,7 +18,7 @@ const StepperComponent = () => {
   };
 
   return (
-    <div className="stepper-container"> {/* Add a class name for the container */}
+    <div className="stepper-container"> 
       <Stepper
         steps={[
           { title: "Page 1" },
@@ -32,10 +32,10 @@ const StepperComponent = () => {
       {currentPage === 1 && <Page2 />}
       {currentPage === 2 && <Page3 />}
 
-      <button disabled={currentPage === 0} onClick={handlePrevious}>
+      <button disabled={currentPage === 0} onClick={handlePrevious} className="button">
         Previous
       </button>
-      <button disabled={currentPage === 2} onClick={handleNext}>
+      <button disabled={currentPage === 2} onClick={handleNext} className="button">
         Next
       </button>
     </div>

@@ -1,127 +1,168 @@
-import React, { useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import {
-  setName,
-  setSubmittedName,
-  setPersonalInfo,
-  addLanguage,
-  addSkill,
-  
-  addEducationalQualification,
-  addWorkExperiencetitle,
-  addWorkExperienceEmployeename,
-  addWorkExperienceDuration,
-} from "../../store/cvSlice";
-import "./Page2.scss";
+import { useSelector } from "react-redux";
 
+import { useDispatch } from "react-redux";
+
+import "./Page2.scss";
+import useFormHandlers from "../../components/CustomHooks/UseFormChangeHandlers";
+import { setPersonalInfo } from "../../store/cvSlice";
 const Page2 = () => {
   const submittedName = useSelector((state) => state.input.submittedName);
-  const personalInfo = useSelector((state) => state.input.personalInfo);
- 
   const dispatch = useDispatch();
 
-  const handleNameChange = (event) => {
-    dispatch(setSubmittedName(event.target.value));
-  };
-
-  const handleAgeChange = (event) => {
-    dispatch(
-      setPersonalInfo({
-        age: event.target.value,
-      })
-    );
-  };
-
-  const handleEmailChange = (event) => {
-    dispatch(
-      setPersonalInfo({
-        email: event.target.value,
-      })
-    );
-  };
-
-  const handleNumberChange = (event) => {
-    dispatch(
-      setPersonalInfo({
-        number: event.target.value,
-      })
-    );
-  };
-
-  const handleLanguageChange = (event, index) => {
-    const languages = [...personalInfo.languages];
-    languages[index] = event.target.value;
-    dispatch(
-      setPersonalInfo({
-        languages,
-      })
-    );
-  };
-  const handleSkillChange = (event,index) =>{
-    const skills = [...personalInfo.skills];
-    skills[index] =event.target.value;
-    dispatch(
-      setPersonalInfo({
-        skills
-      })
-    )
-  }
-
-
-
-  const handleWorkExperienceChangeTitle = (event) => {
+  const {
+    personalInfo,
+    handleNameChange,
+    handleAgeChange,
+    handleEmailChange,
+    handleNumberChange,
     
-    dispatch(addWorkExperiencetitle(event.target.value));
-  };
-  const handleWorkExperienceChangeEmployeeName = (event) => {
-    dispatch(addWorkExperienceEmployeename(event.target.value));
-  };
-  const handleWorkExperienceDuration = (event) => {
-    dispatch(addWorkExperienceDuration(event.target.value));
-  };
-
-  const handleEducationalQualificationChange = (event) => {
-    dispatch((event.target.value));
-  };
-
-  const handleAddLanguage = () => {
-    const languages = [...personalInfo.languages, ""];
-    dispatch(
-      setPersonalInfo({
-        languages,
-      })
-    );
-  };
-   const handleAddSkill = ()=>{
-    const skills =[...personalInfo.skills,""];
-    dispatch(setPersonalInfo({
-      skills,
-    }))
-   }
+    handleWorkExperienceChange,
+    handleEducationalQualificationChange,
+    handleAddLanguage,
+    handleAddSkill,
+    handleAddWorkExperience,
+    handleAddEducationalQualification,
+  } = useFormHandlers();
 
   const renderLanguageInputs = () => {
-    return personalInfo.languages.map((language, index) => (
-      <div key={index}>
-        <input
-          type="text"
-          value={language}
-          onChange={(event) => handleLanguageChange(event, index)}
-        />
-      </div>
-    ));
+    return personalInfo.languages.map((language, index) => {
+      const handleLanguageChange = (event) => {
+        const updatedLanguages = [...personalInfo.languages];
+        updatedLanguages[index] = {
+          ...updatedLanguages[index],
+          languages: event.target.value,
+        };
+        dispatch(setPersonalInfo({ languages: updatedLanguages }));
+      };
+
+      return (
+        <div key={index}>
+          <input
+            type="text"
+            value={language.languages}
+            onChange={handleLanguageChange}
+          />
+        </div>
+      );
+    });
   };
 
   const renderSkillInputs = () => {
-    return personalInfo.skills.map((skills, index) => (
-      <div key={index} >
-        <input  style={{width:"250px"}}
-          type="text"
-          value={skills}
-         
-          onChange={(event) => handleSkillChange(event, index)}
-        />
-      </div>
+    return personalInfo.skills.map((skill, index) => {
+      const handleSkillChange = (event) => {
+        const updatedSkills = [...personalInfo.skills];
+        updatedSkills[index] = {
+          ...updatedSkills[index],
+          skills: event.target.value,
+        };
+        dispatch(setPersonalInfo({ skills: updatedSkills }));
+      };
+
+      return (
+        <div key={index}>
+          <input
+            style={{ width: "250px" }}
+            type="text"
+            value={skill.skills}
+            onChange={handleSkillChange}
+          />
+        </div>
+      );
+    });
+  };
+
+  const renderworkExperiences = () => {
+    return personalInfo.workExperiences.map((workExperience, index) => (
+      <>
+        <div key={index}>
+          <input
+            style={{ width: "250px" }}
+            type="text"
+            value={workExperience.Employername}
+            placeholder="Employername"
+            onChange={(event) =>
+              handleWorkExperienceChange(event, index, "Employername")
+            }
+          />
+        </div>
+
+        <div key={index}>
+          <input
+            style={{ width: "250px" }}
+            type="text"
+            value={workExperience.Jobtitle}
+            placeholder="Jobtitle"
+            onChange={(event) =>
+              handleWorkExperienceChange(event, index, "Jobtitle")
+            }
+          />
+        </div>
+
+        <div key={index}>
+          <input
+            style={{ width: "250px" }}
+            type="text"
+            value={workExperience.Duration}
+            placeholder="Duration"
+            onChange={(event) =>
+              handleWorkExperienceChange(event, index, "Duration")
+            }
+          />
+        </div>
+      </>
     ));
+  };
+
+  const renderEducationalQualification = () => {
+    return personalInfo.educationalQualifications.map(
+      (educationalQualification, index) => (
+        <>
+          <div key={index}>
+            <input
+              style={{ width: "250px" }}
+              type="text"
+              value={educationalQualification.InstituteName}
+              placeholder="InstituteName"
+              onChange={(event) =>
+                handleEducationalQualificationChange(
+                  event,
+                  index,
+                  "InstituteName"
+                )
+              }
+            />
+          </div>
+
+          <div key={index}>
+            <input
+              style={{ width: "250px" }}
+              type="text"
+              value={educationalQualification.Qualification}
+              placeholder="Qualification"
+              onChange={(event) =>
+                handleEducationalQualificationChange(
+                  event,
+                  index,
+                  "Qualification"
+                )
+              }
+            />
+          </div>
+
+          <div key={index}>
+            <input
+              style={{ width: "250px" }}
+              type="text"
+              value={educationalQualification.Cgpa}
+              placeholder="Cgpa"
+              onChange={(event) =>
+                handleEducationalQualificationChange(event, index, "Cgpa")
+              }
+            />
+          </div>
+        </>
+      )
+    );
   };
 
   return (
@@ -167,8 +208,13 @@ const Page2 = () => {
             />
 
             <label htmlFor="language">Languages:</label>
+
             {renderLanguageInputs()}
-            <button type="button" onClick={handleAddLanguage}>
+            <button
+              className="button"
+              type="button"
+              onClick={handleAddLanguage}
+            >
               Add Language
             </button>
           </form>
@@ -180,39 +226,34 @@ const Page2 = () => {
             <input type="file" id="image" name="image" accept="image/*" />
 
             <label htmlFor="skills">Skills:</label>
-           {renderSkillInputs()}
-            <button type="button" onClick={handleAddSkill}>Add Skill</button>
+            {renderSkillInputs()}
+            <button className="button" type="button" onClick={handleAddSkill}>
+              Add Skill
+            </button>
 
             <label htmlFor="workExperience">Work Experience:</label>
-            <input
-              id="workExperience"
-              name="workExperience"
-              onChange={handleWorkExperienceChangeTitle}
-              placeholder="Jobtitle"
-            ></input>
-              <input
-              id="workExperience"
-              name="workExperience"
-              onChange={handleWorkExperienceChangeEmployeeName}
-              placeholder="Employername"
-            ></input>
-              <input
-              id="workExperience"
-              name="workExperience"
-              onInput={handleWorkExperienceDuration}
-              placeholder="Duration"
-            ></input>
-            <button type="button">Add Work Experience</button>
+
+            {renderworkExperiences()}
+
+            <button
+              type="button"
+              className="button"
+              onClick={handleAddWorkExperience}
+            >
+              Add Work Experience
+            </button>
 
             <label htmlFor="educationalQualification">
               Educational Qualification:
             </label>
-            <textarea
-              id="educationalQualification"
-              name="educationalQualification"
-              onChange={handleEducationalQualificationChange}
-            ></textarea>
-            <button type="button">Add Educational Qualification</button>
+            {renderEducationalQualification()}
+            <button
+              type="button"
+              className="button"
+              onClick={handleAddEducationalQualification}
+            >
+              Add Educational Qualification
+            </button>
           </form>
         </div>
       </div>

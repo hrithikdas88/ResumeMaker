@@ -7,7 +7,20 @@
     text-align: center;
     margin: 10px;
   }
+  .button {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 4px;
+    background-color: #007bff;
+    color: #ffffff;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
   
+   
+  }
   .card-heading {
     margin-top: 0;
   }
@@ -24,6 +37,7 @@
   .left-side,
   .right-side {
     flex: 1;
+    
   }
   .left-side{
     margin-right: 20px;
