@@ -7,10 +7,6 @@ import Page3 from "../pages/page3/Page3";
 import "./StepperComponent.scss";
 import { selectAge, selectEmail, selectNumber } from "../store/cvSlice";
 
-
-
-
-
 const StepperComponent = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const age = useSelector(selectAge);
@@ -18,7 +14,10 @@ const StepperComponent = () => {
   const number = useSelector(selectNumber);
 
   const handleNext = () => {
-    if (currentPage === 1 && (age === "" || email === "" || number === "")) {
+    if (
+      currentPage === 1 &&
+      (age === "" || email === "" || number === "")
+    ) {
       const alertContainer = document.createElement("div");
       alertContainer.className = "alert-container";
 
@@ -60,7 +59,7 @@ const StepperComponent = () => {
         {currentPage === 1 && <Page2 />}
         {currentPage === 2 && <Page3 />}
       </div>
-      {currentPage > 0 && (
+      {currentPage > 0 && currentPage !== 1 && (
         <button
           disabled={currentPage === 0}
           onClick={handlePrevious}
@@ -92,3 +91,4 @@ const StepperComponent = () => {
 };
 
 export default StepperComponent;
+

@@ -91,5 +91,6 @@ export const {
 export const selectAge = (state) => state.input.personalInfo.age;
 export const selectEmail = (state) => state.input.personalInfo.email;
 export const selectNumber = (state) => state.input.personalInfo.number;
+export const selectImagePath = (state) => state.input.image;
 
 export default inputSlice.reducer;

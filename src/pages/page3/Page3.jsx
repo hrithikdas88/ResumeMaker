@@ -64,7 +64,7 @@ const Page3 = () => {
           {personalInfo.workExperiences.map((workExperience, index) => (
             <div key={index}>
               <h3>Employer Name:{workExperience.Employername}</h3>
-              <p>Job Title: : {workExperience.Jobtitle}</p>
+              <p>Job Title: {workExperience.Jobtitle}</p>
               <p>Duration: {workExperience.Duration}</p>
             </div>
           ))}

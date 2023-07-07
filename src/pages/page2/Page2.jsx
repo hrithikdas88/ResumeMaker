@@ -6,17 +6,15 @@ import "./Page2.scss";
 import useFormHandlers from "../../components/CustomHooks/UseFormChangeHandlers";
 import { setPersonalInfo } from "../../store/cvSlice";
 import { useState } from "react";
-import { FaCheckCircle } from 'react-icons/fa';
-
-
-
-
+import { FaCheckCircle } from "react-icons/fa";
+import { selectImagePath } from "../../store/cvSlice";
 
 const Page2 = () => {
   const submittedName = useSelector((state) => state.input.submittedName);
   const dispatch = useDispatch();
   const fileInputRef = useRef(null);
   const [showAlert, setShowAlert] = useState(false);
+  const imagePath = useSelector(selectImagePath);
 
   const {
     personalInfo,
@@ -35,7 +33,6 @@ const Page2 = () => {
 
   const handleImageUpload = () => {
     const file = fileInputRef.current.files[0];
-    
 
     const reader = new FileReader();
 
@@ -258,7 +255,8 @@ const Page2 = () => {
 
         <div className="right-side">
           <form>
-            <label htmlFor="image">Image:</label>
+            <label htmlFor="image">{imagePath ? <p>Upload succes</p> : <p>No file chosen</p>}</label>
+            
             <input
               type="file"
               id="image"
@@ -266,16 +264,20 @@ const Page2 = () => {
               accept="image/*"
               ref={fileInputRef}
             />
-            <button type="button" className="button" onClick={handleImageUpload} >
+            
+            <button
+              type="button"
+              className="button"
+              onClick={handleImageUpload}
+            >
               Upload Image
             </button>
             {showAlert && (
-  <div className="alert">
-    <FaCheckCircle className="alert-icon" />
-    Image uploaded successfully!
-   
-  </div>
-)}
+              <div className="alert">
+                <FaCheckCircle className="alert-icon" />
+                Image uploaded successfully!
+              </div>
+            )}
 
             <label htmlFor="workExperience">Work Experience:</label>
 
