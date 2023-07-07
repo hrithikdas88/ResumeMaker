@@ -2,14 +2,21 @@ import { useSelector } from "react-redux";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { setImage } from "../../store/cvSlice";
-
 import "./Page2.scss";
 import useFormHandlers from "../../components/CustomHooks/UseFormChangeHandlers";
 import { setPersonalInfo } from "../../store/cvSlice";
+import { useState } from "react";
+import { FaCheckCircle } from 'react-icons/fa';
+
+
+
+
+
 const Page2 = () => {
   const submittedName = useSelector((state) => state.input.submittedName);
   const dispatch = useDispatch();
   const fileInputRef = useRef(null);
+  const [showAlert, setShowAlert] = useState(false);
 
   const {
     personalInfo,
@@ -28,11 +35,16 @@ const Page2 = () => {
 
   const handleImageUpload = () => {
     const file = fileInputRef.current.files[0];
+    
 
     const reader = new FileReader();
 
     reader.onload = () => {
       dispatch(setImage(reader.result));
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 500);
     };
 
     if (file) {
@@ -54,6 +66,7 @@ const Page2 = () => {
       return (
         <div key={index}>
           <input
+            style={{ width: "250px" }}
             type="text"
             value={language.languages}
             onChange={handleLanguageChange}
@@ -234,6 +247,12 @@ const Page2 = () => {
             >
               Add Language
             </button>
+
+            <label htmlFor="skills">Skills:</label>
+            {renderSkillInputs()}
+            <button className="button" type="button" onClick={handleAddSkill}>
+              Add Skill
+            </button>
           </form>
         </div>
 
@@ -247,14 +266,16 @@ const Page2 = () => {
               accept="image/*"
               ref={fileInputRef}
             />
-            <button type="button" className="button" onClick={handleImageUpload}>
+            <button type="button" className="button" onClick={handleImageUpload} >
               Upload Image
             </button>
-            <label htmlFor="skills">Skills:</label>
-            {renderSkillInputs()}
-            <button className="button" type="button" onClick={handleAddSkill}>
-              Add Skill
-            </button>
+            {showAlert && (
+  <div className="alert">
+    <FaCheckCircle className="alert-icon" />
+    Image uploaded successfully!
+   
+  </div>
+)}
 
             <label htmlFor="workExperience">Work Experience:</label>
 

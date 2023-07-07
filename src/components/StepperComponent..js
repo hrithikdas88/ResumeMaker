@@ -7,6 +7,10 @@ import Page3 from "../pages/page3/Page3";
 import "./StepperComponent.scss";
 import { selectAge, selectEmail, selectNumber } from "../store/cvSlice";
 
+
+
+
+
 const StepperComponent = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const age = useSelector(selectAge);
