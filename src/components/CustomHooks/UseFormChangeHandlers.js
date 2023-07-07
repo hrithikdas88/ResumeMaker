@@ -112,6 +112,7 @@ const useFormHandlers = () => {
   const handleAddEducationalQualification = () => {
     dispatch(addEducationalQualification());
   };
+  
 
   return {
     personalInfo,

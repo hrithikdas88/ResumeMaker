@@ -32,16 +32,21 @@ const StepperComponent = () => {
       {currentPage === 1 && <Page2 />}
       {currentPage === 2 && <Page3 />}
 
-      <button disabled={currentPage === 0} onClick={handlePrevious} className="button">
-        Previous
-      </button>
-      <button disabled={currentPage === 2} onClick={handleNext} className="button">
-        Next
-      </button>
+      {currentPage > 0 && (
+        <button disabled={currentPage === 0} onClick={handlePrevious} className="button">
+          Previous
+        </button>
+      )}
+      {currentPage < 2 && (
+        <button disabled={currentPage === 2} onClick={handleNext} className="button">
+          Next
+        </button>
+      )}
     </div>
   );
 };
 
 export default StepperComponent;
+
 
 

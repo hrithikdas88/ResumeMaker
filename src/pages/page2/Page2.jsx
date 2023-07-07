@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
-
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { setImage } from "../../store/cvSlice";
 
 import "./Page2.scss";
 import useFormHandlers from "../../components/CustomHooks/UseFormChangeHandlers";
@@ -8,6 +9,7 @@ import { setPersonalInfo } from "../../store/cvSlice";
 const Page2 = () => {
   const submittedName = useSelector((state) => state.input.submittedName);
   const dispatch = useDispatch();
+  const fileInputRef = useRef(null);
 
   const {
     personalInfo,
@@ -15,7 +17,7 @@ const Page2 = () => {
     handleAgeChange,
     handleEmailChange,
     handleNumberChange,
-    
+
     handleWorkExperienceChange,
     handleEducationalQualificationChange,
     handleAddLanguage,
@@ -23,6 +25,20 @@ const Page2 = () => {
     handleAddWorkExperience,
     handleAddEducationalQualification,
   } = useFormHandlers();
+
+  const handleImageUpload = () => {
+    const file = fileInputRef.current.files[0];
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      dispatch(setImage(reader.result));
+    };
+
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
 
   const renderLanguageInputs = () => {
     return personalInfo.languages.map((language, index) => {
@@ -175,7 +191,7 @@ const Page2 = () => {
             <label htmlFor="name">Name:</label>
             <input
               type="text"
-              value={submittedName}
+              value={personalInfo.name}
               onChange={handleNameChange}
               readOnly
             />
@@ -223,8 +239,16 @@ const Page2 = () => {
         <div className="right-side">
           <form>
             <label htmlFor="image">Image:</label>
-            <input type="file" id="image" name="image" accept="image/*" />
-
+            <input
+              type="file"
+              id="image"
+              name="image"
+              accept="image/*"
+              ref={fileInputRef}
+            />
+            <button type="button" onClick={handleImageUpload}>
+              Upload Image
+            </button>
             <label htmlFor="skills">Skills:</label>
             {renderSkillInputs()}
             <button className="button" type="button" onClick={handleAddSkill}>

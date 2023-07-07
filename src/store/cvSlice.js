@@ -26,6 +26,7 @@ const inputSlice = createSlice({
     submittedName: "",
     loading: false,
     error: null,
+    image: null, // Add a new field for storing the image
   },
   reducers: {
     setName: (state, action) => {
@@ -51,6 +52,9 @@ const inputSlice = createSlice({
         Qualification: "",
         Cgpa: "",
       });
+    },
+    setImage: (state, action) => {
+      state.image = action.payload; // Set the image in the state
     },
   },
   extraReducers: (builder) => {
@@ -79,7 +83,7 @@ export const {
   addLanguage,
   addSkill,
   addWorkExperience,
- 
+  setImage, // Add the new action to the exported actions
 
   addEducationalQualification,
 } = inputSlice.actions;

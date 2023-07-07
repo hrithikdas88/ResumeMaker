@@ -1,63 +1,94 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import "./Page3.scss"
-
+import "./Page3.scss";
 
 const Page3 = () => {
   const personalInfo = useSelector((state) => state.input.personalInfo);
+  const image = useSelector((state) => state.input.image);
 
   return (
-    <div className="cv-container">
-    <div className="header">
-      <img src="your-image.jpg" alt="Your Name" />
-      <h1 className="name">Your Name</h1>
-      <h2 className="title">Your Title/Position</h2>
-    </div>
-    <div className="content">
-      <div className="left-section">
-        <h3>Personal Details</h3>
-        <div className="details-row">
-          <span className="label">Age:</span>
-          <span className="value">30</span>
+    <div className="full">
+      <div className="left">
+        <div className="image">
+        {image && <img src={image} alt="Uploaded Image" style={{ width: "100px", height: "100px" }} />}
         </div>
-        <div className="details-row">
-          <span className="label">Email:</span>
-          <span className="value">example@example.com</span>
+        <div className="Contact">
+          <h2>Contact</h2>
+          <p>
+            <b>Email id:</b> {personalInfo.email}
+          </p>
+          <p>
+            <b>Mobile no :</b> {personalInfo.number}
+          </p>
         </div>
-        <div className="details-row">
-          <span className="label">Phone:</span>
-          <span className="value">123-456-7890</span>
+        <div className="Skills">
+          <h2>Skills</h2>
+          {personalInfo.skills.map((skill, index) => (
+            <ul>
+         <li key={index}>{skill.skills}</li>
+         </ul>
+      ))}
         </div>
-        <div className="details-row">
-          <span className="label">Languages:</span>
-          <span className="value">English, Spanish</span>
+        <div className="Language">
+          <h2>Language</h2>
+          {personalInfo.languages.map((language, index) => (
+            <ul>
+         <li key={index}>{language.languages}</li>
+         </ul>
+      ))}
         </div>
-        <div className="skills">
-          <h4>Skills:</h4>
+      </div>
+      <div className="right">
+        <div className="name">
+          <h1>{personalInfo.name}</h1>
+        </div>
+        <div className="title">
+          <p>Web Developer</p>
+        </div>
+        <div className="Summary">
+          <h2>Summary</h2>
+          <p>
+            To secure a challenging position in a reputable organization to
+            expand my learning knowledge and skill
+          </p>
+        </div>
+        <div className="Experience">
+          <h2>Experience</h2>
+          {personalInfo.workExperiences.map((workExperience, index) => (
+        <div key={index}>
+          <h3>Employer Name:{workExperience.Employername}</h3>
+          <p>Job Title: : {workExperience.Jobtitle}</p>
+          <p>Duration: {workExperience.Duration}</p>
+        </div>
+      ))}
+          
+        <div className="Education">
+          <h2>Education</h2>
+          {personalInfo.educationalQualifications.map((qualification, index) => (
+        <div key={index}>
+          <h3>Institute Name: {qualification.InstituteName}</h3>
+          <p>Qualification: {qualification.Qualification}</p>
+          <p>CGPA: {qualification.Cgpa}</p>
+        </div>
+      ))}
+         
+        </div>
+        {/* <div className="project">
           <ul>
-            <li>Skill 1</li>
-            <li>Skill 2</li>
-            <li>Skill 3</li>
+            <li>
+              <h2>Project1</h2>
+              <p>This project is based on HTML & used React</p>
+            </li>
+            <li>
+              <h2>Project2</h2>
+              <p>This project is based on HTML & used React</p>
+            </li>
           </ul>
-        </div>
-      </div>
-      <div className="right-section">
-        <h3>Educational Qualification</h3>
-        <div className="qualification">
-          <h4>Degree 1</h4>
-          <p>University/Institution</p>
-          <p>Year</p>
-        </div>
-        <div className="qualification">
-          <h4>Degree 2</h4>
-          <p>University/Institution</p>
-          <p>Year</p>
-        </div>
+        </div> */}
       </div>
     </div>
-  </div>
+    </div>
   );
 };
 
 export default Page3;
-
