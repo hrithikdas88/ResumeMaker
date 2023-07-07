@@ -26,7 +26,7 @@ const inputSlice = createSlice({
     submittedName: "",
     loading: false,
     error: null,
-    image: null, // Add a new field for storing the image
+    image: null,
   },
   reducers: {
     setName: (state, action) => {
@@ -54,7 +54,7 @@ const inputSlice = createSlice({
       });
     },
     setImage: (state, action) => {
-      state.image = action.payload; // Set the image in the state
+      state.image = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -83,9 +83,13 @@ export const {
   addLanguage,
   addSkill,
   addWorkExperience,
-  setImage, // Add the new action to the exported actions
+  setImage,
 
   addEducationalQualification,
 } = inputSlice.actions;
+
+export const selectAge = (state) => state.input.personalInfo.age;
+export const selectEmail = (state) => state.input.personalInfo.email;
+export const selectNumber = (state) => state.input.personalInfo.number;
 
 export default inputSlice.reducer;

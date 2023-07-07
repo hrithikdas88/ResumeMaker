@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { setNameAsync, setSubmittedName } from "../../store/cvSlice";
 import './Page1.scss'
 
-const Page1 = () => {
+const Page1 = ({ handleNext }) => {
   const dispatch = useDispatch();
   const [name, setName] = useState("");
  
@@ -16,6 +16,7 @@ const Page1 = () => {
     event.preventDefault();
     dispatch(setNameAsync(name)).then(() => {
       dispatch(setSubmittedName(name));
+      handleNext(); 
     });
   };
 
@@ -23,7 +24,7 @@ const Page1 = () => {
     <div className="container">
       <h1>Enter Your Name</h1>
       <form onSubmit={handleFormSubmit}>
-        <input type="text" value={name} onChange={handleInputChange}  />
+        <input type="text" value={name} onChange={handleInputChange} required />
         <button className="button1" type="submit">Submit</button>
       </form>
     </div>

@@ -203,6 +203,7 @@ const Page2 = () => {
               name="age"
               value={personalInfo.age}
               onChange={handleAgeChange}
+              required
             />
 
             <label htmlFor="email">Email:</label>
@@ -246,7 +247,7 @@ const Page2 = () => {
               accept="image/*"
               ref={fileInputRef}
             />
-            <button type="button" onClick={handleImageUpload}>
+            <button type="button" className="button" onClick={handleImageUpload}>
               Upload Image
             </button>
             <label htmlFor="skills">Skills:</label>

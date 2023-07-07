@@ -9,16 +9,23 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
+.main-container{
 
+  display: flex;
+  justify-content: center;
+  width: 100%;
 .full {
   width: 50%;
   max-width: 1000px;
   min-height: 100px;
   background-color: rgb(245, 239, 231);
   margin: 0;
-  display: grid;
+ // display: grid;
   grid-template-columns: 2fr 4fr;
+  display: flex;
+  justify-content: center;
 }
 
 .left {
@@ -57,4 +64,5 @@ body {
 
 h2 {
   background-color: rgb(4, 96, 150);
+}
 }
